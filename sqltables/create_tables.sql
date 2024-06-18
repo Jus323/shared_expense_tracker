@@ -55,7 +55,7 @@ INSERT INTO expense_type (expense_type_name)
 VALUES ('Household'), ('Dining'), ('Entertainment');
 
 SELECT setval('accounts_account_id_seq', (SELECT MAX(account_id) FROM accounts)+1);
-SELECT setval('expense_type_expense_type_id_seq', (SELECT MAX(expense_type) FROM expense_type)+1);
+SELECT setval('expense_type_expense_type_id_seq', (SELECT MAX(expense_type_id) FROM expense_type)+1);
 SELECT setval('users_user_id_seq', (SELECT MAX(user_id) FROM users)+1);
 SELECT setval('user_account_user_account_id_seq', (SELECT MAX(user_account_id) FROM user_account)+1);
 

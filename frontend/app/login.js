@@ -1,43 +1,47 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/styles';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router'; // Assuming this is correctly imported from your custom or third-party library
+import { login } from '../services/authService'; // Adjust the import path as per your project structure
 
 const LoginPage = () => {
-    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
   
     const handleLogin = async () => {
       // Basic validation
       if (!email || !password) {
-        setError('Please enter both username and password.');
+        setError('Please enter both email and password.');
         return;
       }
   
-      // Simulating login logic (replace with your actual login code)
-      if (email === 'user' && password === 'password') {
-        // Example: Store a token in AsyncStorage upon successful login
-        try {
-          await AsyncStorage.setItem('userToken', 'abc123'); // Replace 'abc123' with your actual token or flag
-          router.replace("/home");
-        } catch (error) {
-          console.error('Error saving data:', error);
+      setIsLoading(true);
+
+      try {
+        const loggedIn = await login(email, password);
+        if (loggedIn) {
+          router.replace("/home"); // Navigate to Home page after successful login
+        } else {
+          setError('Invalid email or password. Please try again.');
         }
-      } else {
-        setError('Invalid username or password. Please try again.');
+      } catch (error) {
+        setError(error.message || 'Login failed. Please try again.');
+      } finally {
+        setIsLoading(false);
       }
     };
   
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Login Page</Text>
+        {isLoading && <ActivityIndicator size="large" />}
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <TextInput
           style={styles.input}
-          placeholder="Username"
+          placeholder="Email"
           value={email}
           onChangeText={setEmail}
         />
@@ -53,4 +57,4 @@ const LoginPage = () => {
     );
   };  
 
-  export default LoginPage;
+export default LoginPage;

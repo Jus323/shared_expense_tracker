@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import useCheckLoginStatus from '../hooks/useCheckLoginStatus';
 
 const StarterPage = () => {
     const { isLoading, isLoggedIn } = useCheckLoginStatus();
-    const router = useRouter();
   
     useEffect(() => {
         if (!isLoading) {

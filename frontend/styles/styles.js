@@ -20,10 +20,20 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10,
       marginBottom: 10,
     },
+    button: {
+      backgroundColor: '#007BFF',
+      padding: 10,
+      borderRadius: 5,
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+    },
     error: {
       color: 'red',
       marginBottom: 10,
-    },
+    }
   });
 
   export default styles;

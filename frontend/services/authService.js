@@ -38,16 +38,23 @@ export const logout = async () => {
 
   try {
     // Clear user session data
-    await AsyncStorage.removeItem('userToken');
-    await AsyncStorage.removeItem('userId');
-    
-    // Optionally clear all keys if you have multiple keys to clear
-    // await AsyncStorage.clear();
+    await AsyncStorage.clear();
 
     // Navigate to the login screen
     router.replace('/login');
   } catch (error) {
     console.error('Error clearing data', error);
     // Handle error or show alert
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('currentUser');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // handle read error
+    console.error("Error reading user data from AsyncStorage", e);
+    return null;
   }
 };

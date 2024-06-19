@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from '../styles/styles';
+import styles from '../../styles/styles';
 import { router } from 'expo-router'; // Assuming this is correctly imported from your custom or third-party library
-import { login } from '../services/authService'; // Adjust the import path as per your project structure
+import { login } from '../../services/authService'; // Adjust the import path as per your project structure
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const LoginPage = () => {
+    const { user, setUser } = useGlobalContext;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -23,7 +25,16 @@ const LoginPage = () => {
       try {
         const loggedIn = await login(email, password);
         if (loggedIn) {
-          router.replace("/home"); // Navigate to Home page after successful login
+            // Fetch user data from AsyncStorage
+        const userDataString = await AsyncStorage.getItem('userData');
+        const userData = userDataString ? JSON.parse(userDataString) : null;
+
+        // Update global user state
+        if (userData) {
+          setUser(userData);
+        }
+
+        router.replace("/home"); // Navigate to Home page after successful login
         } else {
           setError('Invalid email or password. Please try again.');
         }
@@ -52,7 +63,9 @@ const LoginPage = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Login" onPress={handleLogin} />
+        <Pressable style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+      </Pressable>
       </View>
     );
   };  

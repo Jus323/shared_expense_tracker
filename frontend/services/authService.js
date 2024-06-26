@@ -8,7 +8,6 @@ const loginEndpoint = `${baseApiUrl}login`;
 
 export const login = async (email, password) => {
   try {
-    console.log(loginEndpoint);
     const response = await fetch(loginEndpoint, {
       method: 'POST',
       headers: {
@@ -41,7 +40,7 @@ export const logout = async () => {
     await AsyncStorage.clear();
 
     // Navigate to the login screen
-    router.replace('/login');
+    router.replace('/sign_in');
   } catch (error) {
     console.error('Error clearing data', error);
     // Handle error or show alert

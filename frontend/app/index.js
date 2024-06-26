@@ -9,9 +9,9 @@ const StarterPage = () => {
     useEffect(() => {
         if (!loading) {
           if (isLogged) {
-            router.replace('/home'); // Redirect to Home page
+            router.replace('/accounts'); // Redirect to Home page
           } else {
-            router.replace('/login'); // Redirect to Login page
+            router.replace('/sign_in'); // Redirect to Login page
           }
         }
       }, [loading, isLogged, router]);

@@ -7,7 +7,7 @@ import { login } from '../../services/authService'; // Adjust the import path as
 import { useGlobalContext } from '../../context/GlobalProvider';
 
 const LoginPage = () => {
-    const { user, setUser } = useGlobalContext;
+    const { user, setUser } = useGlobalContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -34,7 +34,7 @@ const LoginPage = () => {
           setUser(userData);
         }
 
-        router.replace("/home"); // Navigate to Home page after successful login
+        router.replace("/accounts"); // Navigate to Home page after successful login
         } else {
           setError('Invalid email or password. Please try again.');
         }

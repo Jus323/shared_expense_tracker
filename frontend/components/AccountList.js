@@ -41,7 +41,7 @@ const AccountsList = () => {
             {accounts.map((account) => (
                 <TouchableOpacity
                     key={account.accountId}
-                    onPress={() => router.push(`/expenses/${account.id}`)}
+                    onPress={() => router.push(`/tabs?accountId=${account.accountId}`)}
                 >
                     <Text>{account.accountName}</Text>
                 </TouchableOpacity>

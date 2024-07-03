@@ -11,9 +11,9 @@ const TabLayout = () => {
             <SafeAreaView style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
                 <Button title="Back" onPress={() => router.back()} />
             </SafeAreaView>
-            <Tabs screenOptions={{ tabBarShowLabel: true }}>
-                <Tabs.Screen name="overview" options={{ title: 'Overview' }} initialParams={{ accountId }} />
-                <Tabs.Screen name="expenses" options={{ title: 'Expenses' }} initialParams={{ accountId }} />
+            <Tabs screenOptions={{ tabBarShowLabel: true, headerShown: false }}>
+                <Tabs.Screen name="expenses" options={{ title: 'Expenses' }} initialParams={{ accountId }} />   
+                <Tabs.Screen name="statistics" options={{ title: 'statistics' }} initialParams={{ accountId }} />
                 <Tabs.Screen name="change_history" options={{ title: 'Change History' }} initialParams={{ accountId }} />
             </Tabs>
         </View>

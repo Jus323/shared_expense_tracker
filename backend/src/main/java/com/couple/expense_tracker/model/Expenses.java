@@ -22,6 +22,9 @@ public class Expenses {
     @Temporal(TemporalType.DATE)
     private Date expenseDate;
 
+    @Column(nullable = false)
+    private Integer dateSequence;
+
     @Column(nullable = true)
     private String description;
 
@@ -37,11 +40,12 @@ public class Expenses {
     public Expenses() {
     }
 
-    public Expenses(Long expenseId, String expenseName, BigDecimal expenseAmount, Date expenseDate, String description, Long expenseTypeId, Long userId, Long accountId) {
+    public Expenses(Long expenseId, String expenseName, BigDecimal expenseAmount, Date expenseDate, Integer dateSequence, String description, Long expenseTypeId, Long userId, Long accountId) {
         this.expenseId = expenseId;
         this.expenseName = expenseName;
         this.expenseAmount = expenseAmount;
         this.expenseDate = expenseDate;
+        this.dateSequence = dateSequence;
         this.description = description;
         this.expenseTypeId = expenseTypeId;
         this.userId = userId;
@@ -112,6 +116,14 @@ public class Expenses {
         this.accountId = accountId;
     }
 
+    public Integer getDateSequence() {
+        return dateSequence;
+    }
+
+    public void setDateSequence(Integer dateSequence) {
+        this.dateSequence = dateSequence;
+    }
+
     @Override
     public String toString() {
         return "Expenses{" +
@@ -119,6 +131,7 @@ public class Expenses {
                 ", expenseName='" + expenseName + '\'' +
                 ", expenseAmount=" + expenseAmount +
                 ", expenseDate=" + expenseDate +
+                ", DateSequence=" + dateSequence +
                 ", description='" + description + '\'' +
                 ", expenseTypeId=" + expenseTypeId +
                 ", userId=" + userId +
@@ -126,3 +139,4 @@ public class Expenses {
                 '}';
     }
 }
+

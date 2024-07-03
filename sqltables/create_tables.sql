@@ -32,6 +32,7 @@ CREATE TABLE expenses (
     expense_amount DECIMAL(10,2) NOT NULL,
     expense_type_id INT NOT NULL,
     expense_date DATE NOT NULL,
+    date_sequence INT NOT NULL,
     description VARCHAR(200),
     user_id INT NOT NULL,
     account_id INT NOT NULL,
@@ -58,8 +59,9 @@ VALUES (1, 1),
 INSERT INTO expense_type (expense_type_name)
 VALUES ('Household'), ('Dining'), ('Entertainment');
 
-INSERT INTO expenses (expense_name, expense_amount, expense_type_id, expense_date, description, user_id, account_id)
-VALUES ('Dyson Vacuum cleaner', 546.9, 1, '2024-06-26', NULL, 1, 1);
+INSERT INTO expenses (expense_name, expense_amount, expense_type_id, expense_date, date_sequence, description, user_id, account_id)
+VALUES ('Dyson Vacuum cleaner', 546.9, 1, '2024-06-26', 1, NULL, 1, 1),
+('Groceries', 125.99, 1, '2024-06-26', 2, NULL, 2, 1);
 
 SELECT setval('accounts_account_id_seq', (SELECT MAX(account_id) FROM accounts)+1);
 SELECT setval('expense_type_expense_type_id_seq', (SELECT MAX(expense_type_id) FROM expense_type)+1);

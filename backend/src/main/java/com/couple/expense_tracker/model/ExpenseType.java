@@ -27,6 +27,14 @@ public class ExpenseType {
         this.expenseTypeId = expenseTypeId;
     }
 
+    public String getExpenseTypeName() {
+        return expenseTypeName;
+    }
+
+    public void setExpenseTypeName(String expenseTypeName) {
+        this.expenseTypeName = expenseTypeName;
+    }
+
     @Override
     public String toString() {
         return "ExpenseType{" +

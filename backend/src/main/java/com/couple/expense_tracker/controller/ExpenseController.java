@@ -18,8 +18,8 @@ public class ExpenseController {
     private ExpensesService expensesService;
 
     @GetMapping("/{accountId}")
-    public List<Expenses> getExpensesByAccountId(@PathVariable Long accountId) {
-        return expensesService.getExpensesByAccountId(accountId);
+    public List<Expenses> getExpensesByAccountId(@PathVariable Long accountId, @RequestParam(name = "month") Integer month, @RequestParam(name = "year") Integer year) {
+        return expensesService.getExpensesByAccountIdMonthYear(accountId, month, year);
     }
     @PostMapping
     public ResponseEntity<Expenses> newExpense(@RequestBody ExpensePojo expensePojo) {

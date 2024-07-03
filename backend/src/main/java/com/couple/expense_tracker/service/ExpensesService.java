@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,10 +20,20 @@ public class ExpensesService {
         return expensesRepository.findByAccountId(accountId);
     }
 
+    public List<Expenses> getExpensesByAccountIdMonthYear(Long accountId, Integer month, Integer year) {
+        return expensesRepository.findByAccountIdMonthYear(accountId, month, year);
+    }
+
+    public Integer getNextDateSequence(Long accountId, Date expenseDate) {
+        return expensesRepository.getNextDateSequence(accountId, expenseDate);
+    }
+
+    @Transactional
     public Expenses addExpense(ExpensePojo expensePojo) {
         Expenses expenses = new Expenses();
         expenses.setExpenseAmount(expensePojo.getExpenseAmount());
         expenses.setExpenseDate(expensePojo.getExpenseDate());
+        expenses.setDateSequence(getNextDateSequence(expensePojo.getAccountId(), expensePojo.getExpenseDate()));
         expenses.setExpenseName(expensePojo.getExpenseName());
         expenses.setExpenseTypeId(expensePojo.getExpenseTypeId());
         expenses.setDescription(expensePojo.getDescription());

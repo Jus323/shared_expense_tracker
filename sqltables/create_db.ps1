@@ -50,7 +50,7 @@ if ($?) {
 
 # Execute SQL script to create tables
 Write-Host "Executing SQL script to create tables..."
-psql -h $PGHOST -p $PGPORT -U $PGUSER -d $DBNAME -f $SQL_SCRIPT -v ON_ERROR_STOP=1
+psql -h $PGHOST -p $PGPORT -U $PGUSER -d $DBNAME -f $SQL_SCRIPT -v ON_ERROR_STOP=1 -P pager=off
 
 if ($?) {
     Write-Host "Tables created successfully."

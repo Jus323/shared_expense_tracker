@@ -2,6 +2,7 @@ package com.couple.expense_tracker.service;
 
 import com.couple.expense_tracker.exception.ExpenseNotFoundException;
 import com.couple.expense_tracker.model.Expenses;
+import com.couple.expense_tracker.pojo.EditExpensePojo;
 import com.couple.expense_tracker.pojo.ExpensePojo;
 import com.couple.expense_tracker.repository.ExpensesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class ExpensesService {
         return expensesRepository.getNextDateSequence(accountId, expenseDate);
     }
 
+    public Expenses getExpensesById(Long expenseId) {
+        return expensesRepository.findByExpenseId(expenseId);
+    }
+
     @Transactional
     public Expenses addExpense(ExpensePojo expensePojo) {
         Expenses expenses = new Expenses();
@@ -48,5 +53,20 @@ public class ExpensesService {
                 .orElseThrow(() -> new ExpenseNotFoundException("Expense with ID " + expenseId + " not found"));
         expensesRepository.deleteById(expenseId);
         return expense;
+    }
+
+    @Transactional
+    public Expenses updateExpense(Long expenseId, EditExpensePojo editExpensePojo) {
+        Expenses existingExpense = expensesRepository.findById(expenseId)
+                .orElseThrow(() -> new ExpenseNotFoundException("Expense with ID " + expenseId + " not found"));
+
+        existingExpense.setExpenseAmount(editExpensePojo.getExpenseAmount());
+        existingExpense.setExpenseDate(editExpensePojo.getExpenseDate());
+        existingExpense.setExpenseName(editExpensePojo.getExpenseName());
+        existingExpense.setExpenseTypeId(editExpensePojo.getExpenseTypeId());
+        existingExpense.setDescription(editExpensePojo.getDescription());
+        existingExpense.setUserId(editExpensePojo.getUserId());
+
+        return expensesRepository.save(existingExpense);
     }
 }

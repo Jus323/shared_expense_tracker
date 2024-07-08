@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, Alert, SectionList, StyleSheet } from 'r
 import { useFocusEffect } from '@react-navigation/native';
 import config from '../config';
 import ExpenseView from './ExpenseView';
+import { useRouter } from 'expo-router';
 
 const baseApiUrl = config.baseEndPoint;
 const expensesEndPoint = `${baseApiUrl}expenses`;
@@ -10,6 +11,7 @@ const expensesEndPoint = `${baseApiUrl}expenses`;
 const ExpensesList = ({ accountId, month, year }) => {
     const [groupedExpenses, setGroupedExpenses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
 
     const fetchExpenses = async () => {
         setLoading(true);
@@ -51,6 +53,10 @@ const ExpensesList = ({ accountId, month, year }) => {
         }
     };
 
+    const handleExpensePress = (expenseId) => {
+        router.push(`/edit_expense?accountId=${accountId}&expenseId=${expenseId}`);
+    };
+
     useEffect(() => {
         fetchExpenses();
     }, [accountId, month, year]);
@@ -74,7 +80,7 @@ const ExpensesList = ({ accountId, month, year }) => {
             sections={groupedExpenses}
             keyExtractor={(item) => item.expenseId.toString()}
             renderItem={({ item }) => (
-                <ExpenseView expense={item} />
+                <ExpenseView expense={item} onPress={() => handleExpensePress(item.expenseId)} />
             )}
             renderSectionHeader={({ section: { title } }) => (
                 <View style={styles.sectionHeader}>
@@ -95,19 +101,6 @@ const styles = StyleSheet.create({
     sectionHeaderText: {
         fontSize: 18,
         fontWeight: 'bold',
-    },
-    expenseItem: {
-        padding: 15,
-        marginVertical: 10,
-        backgroundColor: '#e0e0e0',
-        borderRadius: 5,
-    },
-    expenseText: {
-        fontSize: 18,
-    },
-    expenseAmount: {
-        fontSize: 16,
-        color: '#888',
     },
 });
 

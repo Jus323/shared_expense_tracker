@@ -14,7 +14,7 @@ const TabLayout = () => {
             <Tabs screenOptions={{ tabBarShowLabel: true, headerShown: false }}>
                 <Tabs.Screen name="expenses" options={{ title: 'Expenses' }} initialParams={{ accountId }} />   
                 <Tabs.Screen name="statistics" options={{ title: 'statistics' }} initialParams={{ accountId }} />
-                <Tabs.Screen name="change_history" options={{ title: 'Change History' }} initialParams={{ accountId }} />
+                <Tabs.Screen name="users" options={{ title: 'Users' }} initialParams={{ accountId }} />
             </Tabs>
         </View>
     );

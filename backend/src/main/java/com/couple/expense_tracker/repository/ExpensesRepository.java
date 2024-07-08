@@ -17,4 +17,6 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Long> {
 
     @Query(value = "SELECT COALESCE(MAX(date_sequence) + 1, 1) from expenses where account_id = :accountId and expense_date = :expenseDate ;", nativeQuery = true)
     Integer getNextDateSequence(@Param("accountId") Long accountId, @Param("expenseDate") Date expenseDate);
+
+    Expenses findByExpenseId(Long expenseId);
 }

@@ -1,36 +1,36 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const ExpenseView = ({ expense }) => {
-    const { expenseName, expenseAmount, expenseDate, dateSequence, expenseId, description, expenseTypeId, userId, accountId } = expense;
-
+const ExpenseView = ({ expense, onPress }) => {
     return (
-        <View style={styles.expenseItem}>
-            <Text style={styles.expenseName}>{expenseName}</Text>
-            <Text style={styles.expenseAmount}>${expenseAmount.toFixed(2)}</Text>
-            <Text style={styles.expenseDate}>{expenseDate}</Text>
-        </View>
+        <TouchableOpacity onPress={() => onPress(expense.expenseId)} style={styles.container}>
+            <Text style={styles.expenseName}>{expense.expenseName}</Text>
+            <Text style={styles.expenseAmount}>${expense.expenseAmount.toFixed(2)}</Text>
+            <Text style={styles.expenseDate}>{new Date(expense.expenseDate).toLocaleDateString()}</Text>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
-    expenseItem: {
-        padding: 15,
-        marginVertical: 10,
-        backgroundColor: '#e0e0e0',
-        borderRadius: 5,
+    container: {
+        padding: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     expenseName: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
     },
     expenseAmount: {
         fontSize: 16,
-        color: '#888',
+        color: '#555',
     },
     expenseDate: {
         fontSize: 14,
-        color: '#aaa',
+        color: '#777',
     },
 });
 

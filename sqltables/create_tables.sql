@@ -43,7 +43,10 @@ CREATE TABLE expenses (
 
 INSERT INTO users (password, email, first_name, last_name)
 VALUES ('password', 'justinlee97@hotmail.com', 'Justin', 'Lee'), 
-       ('password', 'cindypzh@gmail.com', 'Cindy', 'Phyu');
+       ('password', 'cindypzh@gmail.com', 'Cindy', 'Phyu'),
+       ('password', 'test1@gmail.com', 'Test', '1'),
+       ('password', 'test2@gmail.com', 'Test', '2'),
+       ('password', 'test3@gmail.com', 'Test', '3');
 
 INSERT INTO accounts (account_name, owner_id)
 VALUES ('Shared account', 1),
@@ -61,7 +64,10 @@ VALUES ('Household'), ('Dining'), ('Entertainment');
 
 INSERT INTO expenses (expense_name, expense_amount, expense_type_id, expense_date, date_sequence, description, user_id, account_id)
 VALUES ('Dyson Vacuum cleaner', 546.9, 1, '2024-06-26', 1, NULL, 1, 1),
-('Groceries', 125.99, 1, '2024-06-26', 2, NULL, 2, 1);
+('Groceries', 125.99, 1, '2024-06-26', 2, NULL, 2, 1),
+('Microwave', 500, 1, '2024-07-09', 1, NULL, 1, 1),
+('Dinner at Kopitiam', 20, 2, '2024-07-09', 1, NULL, 1, 1),
+('Groceries', 43, 3, '2024-06-26', 1, NULL, 1, 1);
 
 SELECT setval('accounts_account_id_seq', (SELECT MAX(account_id) FROM accounts)+1);
 SELECT setval('expense_type_expense_type_id_seq', (SELECT MAX(expense_type_id) FROM expense_type)+1);

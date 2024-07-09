@@ -1,6 +1,7 @@
 package com.couple.expense_tracker.service;
 
 
+import com.couple.expense_tracker.exception.UserAlreadyExistException;
 import com.couple.expense_tracker.model.Users;
 import com.couple.expense_tracker.pojo.UserPojo;
 import com.couple.expense_tracker.repository.UserRepository;
@@ -17,6 +18,11 @@ public class UserService {
 
     // Create a new user
     public Users createUser(UserPojo userPojo) {
+        //check if email exist in database
+        Optional<Users> optionalUsers = userRepository.findByEmail(userPojo.getEmail());
+        if (optionalUsers.isPresent()) {
+            throw new UserAlreadyExistException("User email already exists.");
+        }
         Users user = new Users();
         user.setEmail(userPojo.getEmail());
         user.setPassword(userPojo.getPassword());

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import React, { useState, useCallback } from 'react';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, Button } from 'react-native';
+import { useLocalSearchParams, router } from 'expo-router';
+import { useGlobalContext } from '../../context/GlobalProvider';
 import config from '../../config';
+import { useFocusEffect } from '@react-navigation/native';
 
 const baseApiUrl = config.baseEndPoint;
 const userAccountEndPoint = `${baseApiUrl}accountusers`;
@@ -12,21 +14,28 @@ const UsersScreen = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchAccountUsers = async () => {
-            try {
-                const response = await fetch(`${userAccountEndPoint}/${accountId}`);
-                const data = await response.json();
-                setUsers(data);
-            } catch (error) {
-                console.error('Error fetching account users:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchAccountUsers = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${userAccountEndPoint}/${accountId}`);
+            const data = await response.json();
+            setUsers(data);
+        } catch (error) {
+            console.error('Error fetching account users:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchAccountUsers();
-    }, [accountId]);
+    useFocusEffect(
+        useCallback(() => {
+            fetchAccountUsers();
+        }, [accountId])
+    );
+
+    const handleAddUser = () => {
+        router.push(`/add_user_account?accountId=${accountId}`);
+    };
 
     if (loading) {
         return (
@@ -49,6 +58,9 @@ const UsersScreen = () => {
                     </View>
                 )}
             />
+            <View style={styles.addUserContainer}>
+                <Button title="Add User" onPress={handleAddUser} />
+            </View>
         </View>
     );
 };
@@ -82,6 +94,10 @@ const styles = StyleSheet.create({
     userEmail: {
         fontSize: 14,
         color: '#666',
+    },
+    addUserContainer: {
+        marginTop: 20,
+        alignSelf: 'flex-end',
     },
 });
 

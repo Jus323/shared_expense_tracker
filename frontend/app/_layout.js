@@ -11,6 +11,7 @@ const RootLayout = () => {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="accounts" options={{ headerShown: false }} />
             <Stack.Screen name="add_expense" options={{ headerShown: false }} initialParams={accountId}/>
+            <Stack.Screen name="add_user_account" options={{ headerShown: false }} initialParams={accountId}/>
           </Stack>
         </GlobalProvider>
       );

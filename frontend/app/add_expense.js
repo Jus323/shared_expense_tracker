@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView, Modal, FlatList } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView, Modal, FlatList, Image } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import config from '../config';
 import { useGlobalContext } from '../context/GlobalProvider';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import icons from '../constants/icons';
+import colors from '../constants/colors';
 
 const baseApiUrl = config.baseEndPoint;
 const expenseTypeEndPoint = `${baseApiUrl}expensetype`;
@@ -105,8 +107,19 @@ const AddExpenseScreen = () => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView>
+        <SafeAreaView style={{ flex: 1}}>
+            <TouchableOpacity 
+                onPress={() => router.back()}
+                style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
+                    <Image 
+                        source={icons.back}
+                        style={{ width: 18, height: 18 }}
+                        color={colors.darkeragave}
+                    />
+                    <Text style= {{marginLeft: 8, color: colors.darkeragave}}>Back</Text>
+                </TouchableOpacity>
+            <View style = {styles.container}>
+            <ScrollView> 
                 <View style={styles.row}>
                     <Text style={styles.label}>Expense Name:</Text>
                     <TextInput
@@ -191,6 +204,7 @@ const AddExpenseScreen = () => {
                     </View>
                 </Modal>
             </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };

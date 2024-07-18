@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import ExpensesList from '../../components/ExpensesList.js';
 import MonthYearPicker from '../../components/MonthYearPicker.js';
 import months from '../../constants/months.js';
 import { useGlobalContext } from '../../context/GlobalProvider.js';
+import styles from '../../styles/styles'
+import icons from '../../constants/icons.js';
+import colors from '../../constants/colors.js';
 
 const ExpensesScreen = () => {
     const { accountId } = useLocalSearchParams();
@@ -51,12 +54,21 @@ const ExpensesScreen = () => {
     };
 
     return (
-        <View style={{ flex: 1, padding: 20 }}>
-            <Text style={{ fontSize: 20, marginBottom: 20 }}>Expenses for account {accountId}</Text>
+        <View style={styles.generalContainer}>
             <View style={styles.dateContainer}>
-                <Button onPress={handlePreviousMonth} title="Previous" />
-                <Button onPress={openDatePicker} title={formatDate(date)} />
-                <Button onPress={handleNextMonth} title="Next" />
+                <TouchableOpacity onPress={handlePreviousMonth}>
+                    <Image 
+                    source={icons.left}
+                    style={{ width: 21, height: 21, tintColor: colors.darkeragave }}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openDatePicker}>
+                    <Text style={styles.expenseDatePicker}> {formatDate(date)} </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleNextMonth}>
+                    <Image 
+                    source={icons.right}
+                    style={{ width: 21, height: 21, tintColor: colors.darkeragave }}/>
+                </TouchableOpacity>
             </View>
             <MonthYearPicker
                 visible={showPicker}
@@ -64,27 +76,16 @@ const ExpensesScreen = () => {
                 onConfirm={handleConfirm}
                 initialDate={date}
             />
-            <ExpensesList accountId={accountId} month={month} year={year} />
-
-            {/* Button to navigate to AddExpenseScreen */}
-            <View style={styles.addButtonContainer}>
-                <Button title="Add Expense" onPress={handleAddExpense} />
+            <View style={{ flex: 1, justifyContent: 'space-between' }}>
+                <ExpensesList accountId={accountId} month={month} year={year} />
+                <View style={styles.addButtonContainer}>
+                    <TouchableOpacity onPress={handleAddExpense} style={styles.roundButton} >
+                        <Text style={styles.roundButtonText}> + </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    dateContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    addButtonContainer: {
-        marginTop: 20,
-        alignSelf: 'flex-end',
-    },
-});
 
 export default ExpensesScreen;

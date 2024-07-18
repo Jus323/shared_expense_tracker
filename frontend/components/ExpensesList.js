@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ActivityIndicator, Alert, SectionList, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, Alert, SectionList } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import config from '../config';
 import ExpenseView from './ExpenseView';
 import { useRouter } from 'expo-router';
+import styles from '../styles/styles';
 
 const baseApiUrl = config.baseEndPoint;
 const expensesEndPoint = `${baseApiUrl}expenses`;
@@ -29,9 +30,19 @@ const ExpensesList = ({ accountId, month, year }) => {
                 throw new Error('API response is not an array');
             }
 
+            // Helper function to format date
+            const formatDate = (dateStr) => {
+                const date = new Date(dateStr);
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' });
+                const year = date.getFullYear();
+                const weekday = date.toLocaleString('default', { weekday: 'short' });
+                return `${weekday}, ${day} ${month} ${year}`;
+            };
+
             // Group expenses by expenseDate
             const groupedData = data.reduce((acc, expense) => {
-                const date = expense.expenseDate;
+                const date = formatDate(expense.expenseDate);
                 if (!acc[date]) {
                     acc[date] = [];
                 }
@@ -72,8 +83,13 @@ const ExpensesList = ({ accountId, month, year }) => {
     }
 
     if (groupedExpenses.length === 0) {
-        return <Text>No expenses found.</Text>;
+        return (
+            <View>
+                <Text>No expenses found.</Text>
+            </View>
+        )
     }
+
 
     return (
         <SectionList
@@ -83,25 +99,13 @@ const ExpensesList = ({ accountId, month, year }) => {
                 <ExpenseView expense={item} onPress={() => handleExpensePress(item.expenseId)} />
             )}
             renderSectionHeader={({ section: { title } }) => (
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionHeaderText}>{title}</Text>
+                <View style={styles.expenseSectionHeader}>
+                    <Text style={styles.expenseSectionHeaderText}>{title}</Text>
                 </View>
             )}
             showsVerticalScrollIndicator={false}
         />
     );
 };
-
-const styles = StyleSheet.create({
-    sectionHeader: {
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        backgroundColor: '#f0f0f0',
-    },
-    sectionHeaderText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-});
 
 export default ExpensesList;

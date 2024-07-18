@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'rea
 import { useGlobalContext } from '../context/GlobalProvider';
 import { useRouter } from 'expo-router';
 import config from '../config';
+import styles from '../styles/styles';
 
 const baseApiUrl = config.baseEndPoint;
 const accountsEndPoint = `${baseApiUrl}accounts`;
@@ -47,26 +48,5 @@ const AccountsList = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    loader: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    accountItem: {
-        backgroundColor: '#f0f0f0',
-        padding: 15,
-        marginBottom: 10,
-        borderRadius: 5,
-    },
-    accountName: {
-        fontSize: 18,
-    },
-});
 
 export default AccountsList;

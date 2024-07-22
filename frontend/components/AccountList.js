@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import { useGlobalContext } from '../context/GlobalProvider';
 import { useRouter } from 'expo-router';
 import config from '../config';
@@ -28,24 +28,26 @@ const AccountsList = () => {
         };
 
         fetchAccounts();
-    }, [user.id]);
+    }, [user.userId]);
 
     if (loading) {
         return <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />;
     }
 
     return (
-        <View style={styles.container}>
-            {accounts.map((account) => (
-                <TouchableOpacity
-                    key={account.accountId}
-                    style={styles.accountItem}
-                    onPress={() => router.push(`/tabs?accountId=${account.accountId}`)}
-                >
-                    <Text style={styles.accountName}>{account.accountName}</Text>
-                </TouchableOpacity>
-            ))}
-        </View>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
+                {accounts.map((account) => (
+                    <TouchableOpacity
+                        key={account.accountId}
+                        style={styles.accountItem}
+                        onPress={() => router.push(`/tabs?accountId=${account.accountId}`)}
+                    >
+                        <Text style={styles.textWhite}>{account.accountName}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+        </ScrollView>
     );
 };
 

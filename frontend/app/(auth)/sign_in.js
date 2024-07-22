@@ -6,12 +6,16 @@ import {
   ActivityIndicator,
   Pressable,
   SafeAreaView,
+  Image, // Import Image component
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../../styles/styles";
 import { router } from "expo-router"; // Assuming this is correctly imported from your custom or third-party library
 import { login } from "../../services/authService"; // Adjust the import path as per your project structure
 import { useGlobalContext } from "../../context/GlobalProvider";
+
+// Import your image
+import wallet from "../../assets/images/wallet.png"; // Adjust the path as needed
 
 const LoginPage = () => {
   const { user, setUser } = useGlobalContext();
@@ -55,7 +59,8 @@ const LoginPage = () => {
 
   return (
     <SafeAreaView style={styles.loginContainer}>
-      <Text style={styles.title}>Login Page</Text>
+      {/* Display the image */}
+      <Image source={wallet} style={styles.image} />
       {isLoading && <ActivityIndicator size="large" />}
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <TextInput

@@ -7,6 +7,7 @@ import { useGlobalContext } from '../context/GlobalProvider';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import icons from '../constants/icons';
 import colors from '../constants/colors';
+import styles from "../styles/styles"
 
 const baseApiUrl = config.baseEndPoint;
 const expenseTypeEndPoint = `${baseApiUrl}expensetype`;
@@ -43,7 +44,6 @@ const AddExpenseScreen = () => {
         try {
             const response = await fetch(expenseTypeEndPoint);
             const data = await response.json();
-            console.log('Fetched expense types:', data); // Debug log
             setExpenseTypes(data);
             if (data.length > 0) {
                 setSelectedExpenseType(data[0]);
@@ -118,13 +118,13 @@ const AddExpenseScreen = () => {
                     />
                     <Text style= {{marginLeft: 8, color: colors.darkeragave}}>Back</Text>
                 </TouchableOpacity>
-            <View style = {styles.container}>
+            <View style = {styles.generalContainer}>
+                <Text style={styles.header}>New Expense </Text>
             <ScrollView> 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Expense Name:</Text>
+                    <Text style={styles.label}>Name:</Text>
                     <TextInput
-                        style={styles.input}
-                        placeholder="Enter expense name"
+                        style={styles.addExpenseInput}
                         value={expenseName}
                         onChangeText={setExpenseName}
                     />
@@ -133,8 +133,7 @@ const AddExpenseScreen = () => {
                 <View style={styles.row}>
                     <Text style={styles.label}>Amount:</Text>
                     <TextInput
-                        style={styles.input}
-                        placeholder="Enter amount"
+                        style={styles.addExpenseInput}
                         value={expenseAmount}
                         onChangeText={setExpenseAmount}
                         keyboardType="numeric"
@@ -157,7 +156,7 @@ const AddExpenseScreen = () => {
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Expense Type:</Text>
+                    <Text style={styles.label}>Type:</Text>
                     <TouchableOpacity
                         style={[styles.input, styles.expenseTypeInput]}
                         onPress={() => setExpenseTypeModalVisible(true)}
@@ -171,15 +170,16 @@ const AddExpenseScreen = () => {
                 <View style={styles.row}>
                     <Text style={styles.label}>Description:</Text>
                     <TextInput
-                        style={[styles.input, { height: 100 }]}
-                        placeholder="Enter description"
+                        style={[styles.addExpenseInput, { height: 100 }]}
                         value={description}
                         onChangeText={setDescription}
                         multiline
                     />
                 </View>
 
-                <Button title="Save Expense" onPress={handleSaveExpense} disabled={!canSave} />
+                <TouchableOpacity onPress={handleSaveExpense} disabled={!canSave} style={styles.addExpenseButton}>
+                     <Text style={styles.buttonText}>Add expense</Text>
+                </TouchableOpacity>
 
                 <Modal
                     visible={isExpenseTypeModalVisible}
@@ -208,84 +208,5 @@ const AddExpenseScreen = () => {
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    label: {
-        fontSize: 18,
-        marginRight: 10,
-        minWidth: 100,
-    },
-    input: {
-        flex: 1,
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        padding: 10,
-    },
-    dateInput: {
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-    },
-    dateText: {
-        fontSize: 16,
-        color: '#333',
-    },
-    expenseTypeInput: {
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-    },
-    expenseTypeText: {
-        fontSize: 16,
-        color: '#333',
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 20,
-        width: '80%',
-        maxHeight: '80%',
-    },
-    modalTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        textAlign: 'center',
-    },
-    expenseTypeItem: {
-        padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    expenseTypeItemText: {
-        fontSize: 16,
-    },
-    modalCloseButton: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#ddd',
-        borderRadius: 5,
-        alignItems: 'center',
-    },
-    modalCloseButtonText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-});
 
 export default AddExpenseScreen;

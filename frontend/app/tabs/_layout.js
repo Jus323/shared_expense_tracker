@@ -57,7 +57,7 @@ const TabLayout = () => {
                     }} 
                     initialParams={{ accountId }} 
                 />   
-                  <Tabs.Screen 
+                  {/* <Tabs.Screen 
                     name="statistics" 
                     options={{ 
                         title: 'Statistics',
@@ -71,10 +71,11 @@ const TabLayout = () => {
                         ),
                     }} 
                     initialParams={{ accountId }} 
-                />
+                /> */}
                 <Tabs.Screen 
                     name="users" 
                     options={{ 
+                        headerShown: false,
                         title: 'Users',
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon 

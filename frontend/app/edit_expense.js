@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView, Modal, FlatList } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, ScrollView, Modal, FlatList, Image } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import config from '../config';
 import { useGlobalContext } from '../context/GlobalProvider';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import icons from '../constants/icons';
+import colors from '../constants/colors';
+import styles from "../styles/styles"
 
 const baseApiUrl = config.baseEndPoint;
 const expenseTypeEndPoint = `${baseApiUrl}expensetype`;
@@ -156,13 +159,24 @@ const EditExpenseScreen = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={{ flex: 1}}>
+            <TouchableOpacity 
+                onPress={() => router.back()}
+                style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
+                    <Image 
+                        source={icons.back}
+                        style={{ width: 18, height: 18 }}
+                        color={colors.darkeragave}
+                    />
+                    <Text style= {{marginLeft: 8, color: colors.darkeragave}}>Back</Text>
+                </TouchableOpacity>
+            <View style={styles.generalContainer}>
+                <Text style={styles.header}>Edit Expense</Text>
             <ScrollView>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Expense Name:</Text>
+                    <Text style={styles.label}>Name:</Text>
                     <TextInput
-                        style={styles.input}
-                        placeholder="Enter expense name"
+                        style={styles.addExpenseInput}
                         value={expenseName}
                         onChangeText={setExpenseName}
                     />
@@ -171,8 +185,7 @@ const EditExpenseScreen = () => {
                 <View style={styles.row}>
                     <Text style={styles.label}>Amount:</Text>
                     <TextInput
-                        style={styles.input}
-                        placeholder="Enter amount"
+                        style={styles.addExpenseInput}
                         value={expenseAmount}
                         onChangeText={setExpenseAmount}
                         keyboardType="numeric"
@@ -195,7 +208,7 @@ const EditExpenseScreen = () => {
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Expense Type:</Text>
+                    <Text style={styles.label}>Type:</Text>
                     <TouchableOpacity
                         style={[styles.input, styles.expenseTypeInput]}
                         onPress={() => setExpenseTypeModalVisible(true)}
@@ -209,16 +222,19 @@ const EditExpenseScreen = () => {
                 <View style={styles.row}>
                     <Text style={styles.label}>Description:</Text>
                     <TextInput
-                        style={[styles.input, { height: 100 }]}
-                        placeholder="Enter description"
+                        style={[styles.addExpenseInput, { height: 100 }]}
                         value={description}
                         onChangeText={setDescription}
                         multiline
                     />
                 </View>
 
-                <Button title="Save Expense" onPress={handleSaveExpense} disabled={!canSave} />
-                <Button title="Delete Expense" onPress={showDeleteConfirm} color="red" />
+                <TouchableOpacity onPress={handleSaveExpense} disabled={!canSave} style={styles.addExpenseButton}>
+                     <Text style={styles.buttonText}>Update expense</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={showDeleteConfirm} style={[styles.addExpenseButton, { backgroundColor: colors.darkeragave }]}>
+                     <Text style={styles.buttonText}>Delete expense</Text>
+                </TouchableOpacity>
 
                 <Modal
                     visible={isExpenseTypeModalVisible}
@@ -251,16 +267,16 @@ const EditExpenseScreen = () => {
                     <View style={styles.modalContainer}>
                         <View style={styles.modalContent}>
                             <Text style={styles.modalTitle}>Confirm Delete</Text>
-                            <Text>Are you sure you want to delete this expense?</Text>
-                            <View style={styles.modalButtonRow}>
+                            <Text style={styles.modalText}>Are you sure you want to delete this expense?</Text>
+                            <View style={styles.modalButtonContainer}>
                                 <TouchableOpacity
-                                    style={[styles.modalButton, styles.modalDeleteButton]}
+                                    style={[styles.modalButton, { backgroundColor: colors.darkeragave }]}
                                     onPress={handleDeleteExpense}
                                 >
                                     <Text style={styles.modalButtonText}>Delete</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    style={styles.modalButton}
+                                    style={[styles.modalButton, { backgroundColor: 'gray' }]}
                                     onPress={hideDeleteConfirm}
                                 >
                                     <Text style={styles.modalButtonText}>Cancel</Text>
@@ -270,107 +286,9 @@ const EditExpenseScreen = () => {
                     </View>
                 </Modal>
             </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    label: {
-        fontSize: 18,
-        marginRight: 10,
-        minWidth: 100,
-    },
-    input: {
-        flex: 1,
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        padding: 10,
-    },
-    dateInput: {
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-    },
-    dateText: {
-        fontSize: 16,
-        color: '#333',
-    },
-    expenseTypeInput: {
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-    },
-    expenseTypeText: {
-        fontSize: 16,
-        color: '#333',
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 20,
-        width: '80%',
-        maxHeight: '80%',
-    },
-    modalTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        textAlign: 'center',
-    },
-    expenseTypeItem: {
-        padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    expenseTypeItemText: {
-        fontSize: 16,
-    },
-    modalCloseButton: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#ddd',
-        borderRadius: 5,
-        alignItems: 'center',
-    },
-    modalCloseButtonText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    modalButtonRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 20,
-    },
-    modalButton: {
-        padding: 10,
-        backgroundColor: '#ddd',
-        borderRadius: 5,
-        alignItems: 'center',
-        flex: 1,
-        marginHorizontal: 5,
-    },
-    modalButtonText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    modalDeleteButton: {
-        backgroundColor: 'red',
-    },
-});
 
 export default EditExpenseScreen;

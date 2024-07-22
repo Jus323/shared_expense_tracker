@@ -9,6 +9,28 @@ const styles = StyleSheet.create({
     marginBottom: 13,
     marginRight: 0
   },
+  container: {
+    flex: 1,
+  },
+  bodyText: {
+    color: colors.grey,
+    fontSize: 16,
+  },
+  bodyTextBold: {
+    color: colors.grey,
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  textWhite: {
+    fontSize: 18,
+    color: colors.white
+  },
+  image: {
+    width: 150, // Adjust as needed
+    height: 150, // Adjust as needed
+    resizeMode: 'contain', // To keep the image aspect ratio
+    marginBottom: 20, // Add spacing if needed
+  },
   //login components
   loginContainer: {
     flex: 1,
@@ -22,10 +44,6 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   //account components
-  accountName: {
-    fontSize: 18,
-    color: colors.white
-  },
   accountItem: {
     backgroundColor: colors.agave,
     padding: 15,
@@ -35,8 +53,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  logoutButton: {
-    backgroundColor: colors.agave,
+  logoutButtonContainer: {
+    backgroundColor: colors.darkeragave,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -87,10 +105,6 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontSize: 16,
   },
-  buttonContainer: {
-    justifyContent: 'flex-end',
-    padding: 20,
-  },
   error: {
     color: colors.red,
     marginBottom: 10,
@@ -108,6 +122,9 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 20,
+  },
+  scrollView: {
+    flex: 1,
   },
   //expense screen components
   dateContainer: {
@@ -154,6 +171,117 @@ const styles = StyleSheet.create({
   expenseSectionHeaderText: {
       fontSize: 15,
       fontWeight: 'bold',
+  },
+  //add account screen components 
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 15,
+    marginRight: 5,
+    minWidth: 90,
+},
+dateInput: {
+  flex: 1,
+  backgroundColor: '#fff',
+  justifyContent: 'center',
+},
+dateText: {
+  fontSize: 16,
+  color: '#333',
+},
+expenseTypeInput: {
+  flex: 1,
+  backgroundColor: '#fff',
+  justifyContent: 'center',
+},
+expenseTypeText: {
+  fontSize: 16,
+  color: '#333',
+},
+modalContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+},
+modalContent: {
+  backgroundColor: '#fff',
+  borderRadius: 10,
+  padding: 20,
+  width: '80%',
+  maxHeight: '80%',
+},
+modalTitle: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginBottom: 10,
+  textAlign: 'center',
+},
+expenseTypeItem: {
+  padding: 15,
+  borderBottomWidth: 1,
+  borderBottomColor: '#ccc',
+},
+expenseTypeItemText: {
+  fontSize: 16,
+},
+modalCloseButton: {
+  marginTop: 20,
+  padding: 10,
+  backgroundColor: '#ddd',
+  borderRadius: 5,
+  alignItems: 'center',
+},
+modalCloseButtonText: {
+  fontSize: 16,
+  fontWeight: 'bold',
+},
+modalButtonContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  width: '100%',
+  marginTop: 20,
+},
+modalButton: {
+  padding: 10,
+  borderRadius: 5,
+  alignItems: 'center',
+  width: '40%',
+},
+modalButtonText: {
+  color: 'white',
+  fontSize: 16,
+},
+addExpenseInput: {
+  flex: 1,
+  height: 40,
+  borderColor: colors.agave,
+  borderWidth: 1,
+  borderRadius: 5,
+  paddingHorizontal: 15,
+  marginBottom: 10,
+  backgroundColor: colors.white,
+},
+addExpenseButton: {
+  // flex: 1,
+  backgroundColor: colors.agave,
+  padding: 10,
+  borderRadius: 13,
+  alignItems: 'center',
+  marginBottom: 10
+},
+//users style
+userContainer: {
+  padding: 10,
+  flex: 1,
+  justifyContent: "space-between",
+  flexDirection: "row",
+  paddingHorizontal: 10,
+  marginTop: 10,
+  alignItems: "center",
   },
 });
 

@@ -48,7 +48,7 @@ const UsersScreen = () => {
 
     return (
         <View style={styles.generalContainer}>
-            <Text style={styles.header}>Users{accountId}</Text>
+            <Text style={styles.header}>Users</Text>
             <FlatList
                 data={users}
                 keyExtractor={(item) => item.userId.toString()}

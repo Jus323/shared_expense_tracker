@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     color: colors.white
   },
   image: {
+    color: colors.agave,
     width: 150, // Adjust as needed
     height: 150, // Adjust as needed
     resizeMode: 'contain', // To keep the image aspect ratio

@@ -8,6 +8,7 @@ Hi all, welcome to my first full-stack project! I have created this mobile app t
 <br>
 
 To setup the app locally, below are the steps and details:
+
 **Setup PostgreSQL Database**
 
 1. Install PostgreSQL on local computer

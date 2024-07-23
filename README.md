@@ -2,7 +2,7 @@
 <h2>Introduction</h2>
 <br>
 
-Hi all, welcome to my first full stack project! I have created this mobile app to allow a more dynamic approach in tracking expenses. This app allow couples to track their expenses together within the same expense account across different devices. On top of that, users can create more accounts, including individual or shared accounts. At this stage, this is a Minimal Viable Product and features such as statistics, OTP, logging are still unavailable.
+Hi all, welcome to my first full-stack project! I have created this mobile app to provide a more dynamic approach to tracking expenses. This app allows couples to collaboratively track their expenses together within the same expense account across different devices. Additionally, users can create individual or shared accounts, consolidating all their expenses in one place. Currently, this is a Minimal Viable Product (MVP), and features such as statistics, OTP, and logging are still under development.
 
 <h2>Setup</h2>
 <br>

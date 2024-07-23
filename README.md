@@ -26,6 +26,9 @@ To setup the app locally, below are the steps and details:
 3. In command line, run:
    npm install
    npx expo start --tunnel
+4. Upon launching app, a dummy account is available for login with details:
+   email: justinlee97@hotmail.com
+   password: password
 
 <h2>Screens</h2>
 

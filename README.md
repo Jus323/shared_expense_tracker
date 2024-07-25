@@ -13,7 +13,9 @@ To setup the app locally, below are the steps and details:
 
 1. Install PostgreSQL on local computer
 2. Open the sqltables folder
-3. Using Windows Powershell, create_db.ps1
+3. In create_db.ps1, change postgres password to your postgres password
+4. Using Windows Powershell:
+   ```create_db.ps1```
 
 **Springboot API**
 
@@ -24,12 +26,15 @@ To setup the app locally, below are the steps and details:
 
 1. Install node.js
 2. Open the frontend folder
-3. In command line, run:
-   npm install
-   npx expo start --tunnel
-4. Upon launching app, a dummy account is available for login with details:
-   email: justinlee97@hotmail.com
-   password: password
+3. in config.js, change baseEndPoint to your local ip address. You can check your ip address by running command:
+   ```ipconfig```
+   
+4. To launch the app, navigate to frontend folder. Run in command line:
+   <pre><code>npm install
+   npx expo start --tunnel</code></pre>
+5. Upon launching app, a dummy account is available for login with details:
+   <pre><code>email: justinlee97@hotmail.com
+   password: password</code></pre>
 
 <h2>Screens</h2>
 
